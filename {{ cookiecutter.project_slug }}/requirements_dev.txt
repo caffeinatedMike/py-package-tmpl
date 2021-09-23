@@ -1,0 +1,34 @@
+# all normal dependencies
+-r requirements.txt
+# tests
+tox
+pytest
+pytest-cov
+# completeness
+check-manifest
+pyroma
+# formatting
+black
+isort
+# linting
+flake8
+flake8-black
+flake8-bandit
+flake8-colors
+flake8-docstrings
+flake8-import-order
+flake8-bugbear
+pep8-naming
+pydocstyle
+darglint
+pylint
+doc8
+docstr-coverage
+# documentation
+sphinx
+sphinx-rtd-theme
+# security
+bandit
+# releasing
+bump2version
+twine>=1.5.0
