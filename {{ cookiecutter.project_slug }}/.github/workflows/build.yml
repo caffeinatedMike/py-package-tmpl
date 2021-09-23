@@ -1,0 +1,84 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - python-version: 3
+            env:
+              TOXENV: isort
+          - python-version: 3
+            env:
+              TOXENV: black
+          - python-version: 3
+            env:
+              TOXENV: check-manifest
+          - python-version: 3
+            env:
+              TOXENV: pyroma
+          - python-version: 3
+            env:
+              TOXENV: flake8
+          - python-version: 3
+            env:
+              TOXENV: pylint
+          - python-version: 3
+            env:
+              TOXENV: mypy
+          - python-version: 3
+            env:
+              TOXENV: doc8
+          - python-version: 3
+            env:
+              TOXENV: docstr-coverage
+          - python-version: 3
+            env:
+              TOXENV: security
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python {% raw %}${{ matrix.python-version }}{% endraw %}
+        uses: actions/setup-python@v2
+        with:
+          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
+      - name: Run check ({% raw %}${{ matrix.env.TOXENV }}{% endraw %})
+        env: {% raw %}${{ matrix.env }}{% endraw %}
+        run: |
+          pip install -U pip
+          pip install -U tox
+          tox
+  tests:
+    name: Tests
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: [3.6, 3.7, 3.8, 3.9]
+      fail-fast: false
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python {% raw %}${{ matrix.python-version }}{% endraw %}
+      uses: actions/setup-python@v2
+      with:
+        python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
+
+    - name: Run tests
+      run: |
+        pip install -U pip wheel tox tox-gh-actions
+        tox -e py
+
+    - name: Upload Coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
+
