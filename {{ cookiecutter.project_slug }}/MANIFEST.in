@@ -1,0 +1,10 @@
+include *.in *.txt *.rst
+include .editorconfig
+include tox.ini
+exclude codecov.yml
+include src/{{ cookiecutter.project_slug }}/py.typed
+include docs/source/conf.py
+recursive-include docs/source *.rst
+recursive-include tests *
+global-exclude __pycache__
+global-exclude *.py[co]
