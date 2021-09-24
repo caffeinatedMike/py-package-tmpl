@@ -49,12 +49,12 @@
 
   - ``PYPI_USER`` and ``PYPI_PASSWORD``
 
-- [ ] Configure gh-pages
+- [ ] Configure ``gh-pages``
 
   - Go to the settings tab > github pages section
   - Select ``gh-pages`` as the branch to host your docs
-  - Choose docs/build/html as the directory containing your docs
-  - You should now see github-pages under the environments in the sidebar.
+  - Choose ``docs/build/html`` as the directory containing your docs
+  - You should now see ``github-pages`` under the environments in the sidebar.
     Click on it and select 'View deployment' this will take you to your ready-made website.
     If it says 404, just give it 2 minutes and retry.
 
@@ -62,4 +62,47 @@
 
 Template Repo Details
 =====================
-- Github workflows to handle code checks and publishing documentation on github pages
+- Github workflows to perform CI/CD tasks:
+  1. Run code quality, test coverage, and security checks on Pull Requests and commits to master branch
+  2. Auto-publish documentation to
+    `GitHub Pages <https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}/>`_
+  3. Auto-publish new releases to PyPI once a new tag is pushed to the remote repository
+     ::
+
+        $ git checkout master
+        $ git pull origin --force
+        $ bump2version patch # possible: major / minor / patch
+        $ git push
+        $ git push --tags
+
+Project structure::
+
+    {{ cookiecutter.project_slug }}
+    ├── .github
+    │   └── workflows
+    │       ├── build.yml
+    │       ├── gh-pages.yml
+    │       └── release.yml
+    ├── docs
+    │   └── source
+    │       └── conf.py
+    ├── src
+    │   └── {{ cookiecutter.project_slug }}
+    │       ├── __init__.py
+    │       └── replace_me.py
+    ├── tests
+    │   ├── __init__.py
+    │   └── test_{{ cookiecutter.project_slug }}.py
+    ├── .editorconfig
+    ├── .gitignore
+    ├── CHANGELOG.rst
+    ├── codecov.yml
+    ├── CONTRIBUTING.rst
+    ├── MANIFEST.in
+    ├── pyproject.toml
+    ├── README.rst
+    ├── requirements.txt
+    ├── requirements_dev.txt
+    ├── setup.cfg
+    ├── setup.py
+    └── tox.ini
