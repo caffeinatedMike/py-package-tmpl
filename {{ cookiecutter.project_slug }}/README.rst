@@ -29,7 +29,8 @@
 
 {{ cookiecutter.project_short_description }}
 
-# TODO once project is created
+TODOs once project is created
+==============================
 
 - [ ] Register project on `test.pypi.org <https://test.pypi.org/account/register/>`_ and
     `pypi.org <https://pypi.org/account/register/>`_.
@@ -75,6 +76,66 @@ Template Repo Details
         $ bump2version patch # possible: major / minor / patch
         $ git push
         $ git push --tags
+
+- Code coverage report comments on Pull Requests, provided by Codecov
+
+- Isolated test environments provided by ``tox``
+
+  .. list-table::
+     :widths: 25 25 50
+     :header-rows: 1
+
+     * - Environment Name
+       - Invocation
+       - Purpose
+     * - ``py``
+       - ``tox -e py``
+       - Runs ``pytest`` with ``pytest-cov`` for testing functionality and code coverage
+     * - ``format``
+       - ``tox -e format``
+       - Formats the project's code using ``black`` and ``isort``
+     * - ``black``
+       - ``tox -e black``
+       - Checks that the project's code is properly formatted according to ``black``'s opinionated specifications
+     * - ``isort``
+       - ``tox -e isort``
+       - Checks that import statements are in the proper order and uniform across the project
+     * - ``check-manifest``
+       - ``tox -e check-manifest``
+       - Check that ``MANIFEST.in`` has the appropriate settings
+     * - ``pyroma``
+       - ``tox -e pyroma``
+       - Determine package friendliness
+     * - ``flake8``
+       - ``tox -e flake8``
+       - Check adherence to pep8 styling using ``flake8``
+     * - ``pylint``
+       - ``tox -e pylint``
+       - Check adherence to pep8 styling using ``pylint``
+     * - ``mypy``
+       - ``tox -e mypy``
+       - Check that static typing has been added across the project
+     * - ``doc8``
+       - ``tox -e doc8``
+       - Check the validity, style, and uniformity of the RST files in the project docs
+     * - ``docstr-coverage``
+       - ``tox -e docstr-coverage``
+       - Check that all modules, classes, and functions contain proper docstrings
+     * - ``security``
+       - ``tox -e security``
+       - Check for any potential security issues with the package code
+     * - ``docs-create``
+       - ``tox -e docs-create``
+       - (Re-)creates fresh ``sphinx-apidoc`` stubs
+     * - ``docs-build``
+       - ``tox -e docs-build``
+       - Builds the static html files based on the .rst files in ``source/``
+     * - ``bumpversion``
+       - ``tox -e bumpversion``
+       - Used to create a new release, updating the version in relavent files and tagging the most-recent commit
+     * - ``test-release``
+       - ``tox -e test-release``
+       - Release the newest version of the code to the test PyPI site
 
 Project structure::
 
