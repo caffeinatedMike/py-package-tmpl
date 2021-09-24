@@ -63,11 +63,12 @@
 Template Repo Details
 =====================
 - Github workflows to perform CI/CD tasks:
-  1. Run code quality, test coverage, and security checks on Pull Requests and commits to master branch
-  2. Auto-publish documentation to
-    `GitHub Pages <https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}/>`_
-  3. Auto-publish new releases to PyPI once a new tag is pushed to the remote repository
-     ::
+
+  - Run code quality, test coverage, and security checks on Pull Requests and commits to master branch
+
+  - Auto-publish documentation to `GitHub Pages <https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}/>`_
+
+  - Auto-publish new releases to PyPI once a new tag is pushed to the remote repository::
 
         $ git checkout master
         $ git pull origin --force
